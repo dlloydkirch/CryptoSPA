@@ -4,7 +4,7 @@ app.controller('cryptocontroller', function($scope, $http) {
     then(function(response) {
         $scope.greeting = response.data;
     });
-    $scope.message = "hello to bitcoin controller"
+    $scope.message = "hello to cryptocontroller controller"
 });
 app.controller('homepage', function($scope){
     $scope.message = 'This is my home';
@@ -12,7 +12,7 @@ app.controller('homepage', function($scope){
 app.config(function($routeProvider) {
     $routeProvider
         .when('/', {
-            templateUrl : "/home.html",
+            templateUrl : "/homepage.html",
             conroller : 'homepage'
         })
         .when('/first', {
