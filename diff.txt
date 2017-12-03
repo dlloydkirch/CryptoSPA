@@ -1,0 +1,160 @@
+diff --git a/app.groovy b/app.groovy
+new file mode 100644
+index 0000000..570e095
+--- /dev/null
++++ b/app.groovy
+@@ -0,0 +1 @@
++@Controller class JsApp { }
+\ No newline at end of file
+diff --git a/public/coins.jpg b/public/coins.jpg
+new file mode 100644
+index 0000000..5eed498
+Binary files /dev/null and b/public/coins.jpg differ
+diff --git a/public/crypto.js b/public/crypto.js
+new file mode 100644
+index 0000000..88130fa
+--- /dev/null
++++ b/public/crypto.js
+@@ -0,0 +1,31 @@
++var app = angular.module('cryptocurrencies', ['ngRoute'])
++app.controller('cryptocontroller', function($scope, $http) {
++    $http.get('https://api.coinmarketcap.com/v1/ticker/?limit=10').
++    then(function(response) {
++        $scope.greeting = response.data;
++    });
++    $scope.message = "hello to cryptocontroller controller"
++});
++app.controller('homepage', function($scope){
++    $scope.message = 'This is my home';
++});
++app.config(function($routeProvider) {
++    $routeProvider
++        .when('/', {
++            templateUrl : "/homepage.html",
++            conroller : 'homepage'
++        })
++        .when('/first', {
++            templateUrl : "/first.html",
++            conroller : 'cryptocontroller'
++        })
++        .when('/third', {
++            templateUrl : "/third.html",
++            conroller : 'cryptocontroller'
++        })
++        .when('/second', {
++            templateUrl : "/second.html",
++            conroller : 'cryptocontroller'
++        })
++        .otherwise({redirectTo: '/'});
++});
+\ No newline at end of file
+diff --git a/public/first.html b/public/first.html
+new file mode 100644
+index 0000000..a50d4eb
+--- /dev/null
++++ b/public/first.html
+@@ -0,0 +1,16 @@
++<h1 style="text-align:center;">This is the first Crypto-Currency</h1>
++<div ng-controller="cryptocontroller">
++    <p>The ID for this currency is -  {{greeting[0].id}}</p>
++    <p>The name of this currency is -  {{greeting[0].name}}</p>
++    <p>The symbol of this currency is -  {{greeting[0].symbol}}</p>
++    <p>The rank of this currency is -  {{greeting[0].rank}}</p>
++    <p>The price in USD of this currency is -  ${{greeting[0].price_usd}}</p>
++    <p>The price in BitCoin of this currency is -  {{greeting[0].price_btc}}</p>
++    <p>The Market cap in USD of this currency is -  {{greeting[0].market_cap_usd}}</p>
++    <p>The available supply of this currency is -  {{greeting[0].available_supply}}</p>
++    <p>The total supply of this currency is -  {{greeting[0].total_supply}}</p>
++    <p>The max supply of this currency is -  {{greeting[0].max_supply}}</p>
++    <p>The last hour change of this currency is -  {{greeting[0].percent_change_1h}} %</p>
++    <p>The percent change in 12 hours of this currency is -  {{greeting[0].percent_change_24h}} %</p>
++    <p>The percent change in 7 days of this currency is -  {{greeting[0].percent_change_7d}} %</p>
++</div>
+\ No newline at end of file
+diff --git a/public/homepage.html b/public/homepage.html
+new file mode 100644
+index 0000000..7aa30e1
+--- /dev/null
++++ b/public/homepage.html
+@@ -0,0 +1,2 @@
++<h1 style="text-align:center;">This is the homepage.</h1>
++<img src="coins.jpg">
+\ No newline at end of file
+diff --git a/public/index.html b/public/index.html
+index e69de29..14ec6cb 100644
+--- a/public/index.html
++++ b/public/index.html
+@@ -0,0 +1,26 @@
++ <!doctype html>
++ <html ng-app="cryptocurrencies">
++ 	<head>
++ 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
++ 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
++ 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
++ 		<script src="crypto.js"></script>
++ 	</head>
++ 	<body style = "background-color:powderblue;">
++	<p>Select the first, second, or third link to see the cooresponding Crypto-Currency
++	</p>
++	<p>
++	</p>
++ 	<a href ="#/homepage">Home</a><p></p>
++ 	<a href = "#/first">First</a><p></p>
++ 	<a href = "#/second">Second</a><p></p>
++ 	<a href = "#/third">Third</a>
++	<p></p>
++	<p>The source of this information is from https://coinmarketcap.com/api/</p>
++	<p>The top three Crypto-Currencies can change daily</p>
++
++	<div ng-view></div>
++
++ 	<script src="app.js"></script>
++ 	</body>
++</html>
+\ No newline at end of file
+diff --git a/public/second.html b/public/second.html
+new file mode 100644
+index 0000000..fd7b90d
+--- /dev/null
++++ b/public/second.html
+@@ -0,0 +1,16 @@
++<h1 style="text-align:center;">This is the second Crypto-Currency</h1>
++<div ng-controller="cryptocontroller">
++    <p>The ID for this currency is -  {{greeting[1].id}}</p>
++    <p>The name of this currency is -  {{greeting[1].name}}</p>
++    <p>The symbol of this currency is -  {{greeting[1].symbol}}</p>
++    <p>The rank of this currency is -  {{greeting[1].rank}}</p>
++    <p>The price in USD of this currency is -  ${{greeting[1].price_usd}}</p>
++    <p>The price in BitCoin of this currency is -  {{greeting[1].price_btc}}</p>
++    <p>The Market cap in USD of this currency is -  {{greeting[1].market_cap_usd}}</p>
++    <p>The available supply of this currency is -  {{greeting[1].available_supply}}</p>
++    <p>The total supply of this currency is -  {{greeting[1].total_supply}}</p>
++    <p>The max supply of this currency is -  {{greeting[1].max_supply}}</p>
++    <p>The last hour change of this currency is -  {{greeting[1].percent_change_1h}} %</p>
++    <p>The percent change in 12 hours of this currency is -  {{greeting[1].percent_change_24h}} %</p>
++    <p>The percent change in 7 days of this currency is -  {{greeting[1].percent_change_7d}} %</p>
++</div>
+\ No newline at end of file
+diff --git a/public/third.html b/public/third.html
+new file mode 100644
+index 0000000..bc2c233
+--- /dev/null
++++ b/public/third.html
+@@ -0,0 +1,16 @@
++<h1 style="text-align:center;">This is the third Crypto-Currency</h1>
++<div ng-controller="cryptocontroller">
++    <p>The ID for this currency is -  {{greeting[2].id}}</p>
++    <p>The name of this currency is -  {{greeting[2].name}}</p>
++    <p>The symbol of this currency is -  {{greeting[2].symbol}}</p>
++    <p>The rank of this currency is -  {{greeting[2].rank}}</p>
++    <p>The price in USD of this currency is -  ${{greeting[2].price_usd}}</p>
++    <p>The price in BitCoin of this currency is -  {{greeting[2].price_btc}}</p>
++    <p>The Market cap in USD of this currency is -  {{greeting[2].market_cap_usd}}</p>
++    <p>The available supply of this currency is -  {{greeting[2].available_supply}}</p>
++    <p>The total supply of this currency is -  {{greeting[2].total_supply}}</p>
++    <p>The max supply of this currency is -  {{greeting[2].max_supply}}</p>
++    <p>The last hour change of this currency is -  {{greeting[2].percent_change_1h}} %</p>
++    <p>The percent change in 12 hours of this currency is -  {{greeting[2].percent_change_24h}} %</p>
++    <p>The percent change in 7 days of this currency is -  {{greeting[2].percent_change_7d}} %</p>
++</div>
+\ No newline at end of file
